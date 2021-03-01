@@ -19,11 +19,11 @@ public class BouncingBall implements Runnable {
     private double speedY;
 
     public void setPaused(){
-        paused = false;
+        paused = true;
     }
 
     public void resumePaused(){
-        paused = true;
+        paused = false;
     }
 
     public boolean isPaused() {
@@ -46,8 +46,8 @@ public class BouncingBall implements Runnable {
         //составляющие скорости
         speedX = Math.cos(angle);
         speedY = Math.sin(angle);
-        color = new Color((int)Math.random(),
-                (int)Math.random(),(int)Math.random());
+        color = new Color((float)Math.random(),
+                (float)Math.random(),(float)Math.random());
         Thread T = new Thread(this);
         T.start();
     }

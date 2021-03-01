@@ -35,6 +35,7 @@ public class MainFrame extends JFrame {
                         !pauseGreenMenuItem.isEnabled()) {
                     pauseMenuItem.setEnabled(true);
                     pauseGreenMenuItem.setEnabled(true);
+                    pauseGreenMenuItem.setEnabled(true);
                 }
             }
         };
@@ -68,6 +69,7 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 field.resume();
                 pauseMenuItem.setEnabled(true);
+                pauseGreenMenuItem.setEnabled(true);
                 resumeMenuItem.setEnabled(false);
             }
         };

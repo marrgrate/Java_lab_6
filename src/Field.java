@@ -11,13 +11,11 @@ public class Field extends JPanel {
 
     private ArrayList<BouncingBall> balls = new ArrayList<BouncingBall>(10);
 
-
-    private Timer repaintTimer = new Timer(10,
-            new ActionListener(){
-                 public void actionPerformed(ActionEvent ev){
-                     repaint();
-                 }
-            });
+    private Timer repaintTimer = new Timer(10, new ActionListener() {
+        public void actionPerformed(ActionEvent ev) {
+            Field.this.repaint();
+        }
+    });
 
     public Field(){
         setBackground(Color.BLACK);
@@ -44,12 +42,12 @@ public class Field extends JPanel {
     public synchronized void resume() {
         for (BouncingBall ball: balls){
             ball.resumePaused();
+            notify();
         }
-        notifyAll();
     }
     public synchronized void pauseGreen() {
         for (BouncingBall ball: balls) {
-            if(ball.getColor().getGreen() <= 2*(ball.getColor().getBlue() + ball.getColor().getRed())){
+            if(ball.getColor().getGreen() >= 2*(ball.getColor().getBlue() + ball.getColor().getRed())) {
                 ball.setPaused();
             }
         }
