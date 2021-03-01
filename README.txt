@@ -1,1 +1,1 @@
-varian 4A: add function stopping green balls on the field
+variant 4A: add function stopping green balls on the field
