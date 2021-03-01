@@ -10,12 +10,28 @@ public class BouncingBall implements Runnable {
     private Field field;
     private int radius;
     private Color color;
+    private boolean paused;
 
     private double x, y;
 
     private int speed;
     private double speedX;
     private double speedY;
+
+    public void setPaused(){
+        paused = false;
+    }
+
+    public void resumePaused(){
+        paused = true;
+    }
+
+    public boolean isPaused() {
+        return paused;
+    }
+    public Color getColor() {
+        return color;
+    }
 
     public BouncingBall(Field field){
         this.field = field;
@@ -60,14 +76,14 @@ public class BouncingBall implements Runnable {
                     speedY = -speedY;
                     y=new Double(field.getHeight()-radius).intValue();
                 } else {
-// Просто смещаемся
+                // Просто смещаемся
                     x += speedX;
                     y += speedY;
                 }
-// Засыпаем на X миллисекунд, где X определяется
-// исходя из скорости
-// Скорость = 1 (медленно), засыпаем на 15 мс.
-// Скорость = 15 (быстро), засыпаем на 1 мс.
+                // Засыпаем на X миллисекунд, где X определяется
+                // исходя из скорости
+                // Скорость = 1 (медленно), засыпаем на 15 мс.
+                // Скорость = 15 (быстро), засыпаем на 1 мс.
                 Thread.sleep(16-speed);
             }
         } catch (InterruptedException ex) {

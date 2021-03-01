@@ -1,4 +1,4 @@
-import javax.swing.*;import java.awt.BorderLayout;
+import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
@@ -12,6 +12,7 @@ public class MainFrame extends JFrame {
     private static final int WIDTH = 700;
     private static final int HEIGHT = 500;
     private JMenuItem pauseMenuItem;
+    private JMenuItem pauseGreenMenuItem;
     private JMenuItem resumeMenuItem;
 
     private Field field = new Field();
@@ -30,22 +31,39 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 field.addBall();
                 if (!pauseMenuItem.isEnabled() &&
-                        !resumeMenuItem.isEnabled()) {
+                        !resumeMenuItem.isEnabled() &&
+                        !pauseGreenMenuItem.isEnabled()) {
                     pauseMenuItem.setEnabled(true);
+                    pauseGreenMenuItem.setEnabled(true);
                 }
             }
         };
         menuBar.add(ballMenu);
         ballMenu.add(addBallAction);
+
         JMenu controlMenu = new JMenu("Управление");
         menuBar.add(controlMenu);
         Action pauseAction = new AbstractAction("Приостановить движение") {
             public void actionPerformed(ActionEvent event) {
                 field.pause();
                 pauseMenuItem.setEnabled(false);
+                pauseGreenMenuItem.setEnabled(false);
                 resumeMenuItem.setEnabled(true);
             }
         };
+        pauseMenuItem = controlMenu.add(pauseAction);
+        pauseMenuItem.setEnabled(false);
+
+        Action pauseActionGreen = new AbstractAction("Приостановить движение зеленых шаров") {
+            public void actionPerformed(ActionEvent event) {
+                field.pauseGreen();
+                pauseMenuItem.setEnabled(false);
+                resumeMenuItem.setEnabled(true);
+            }
+        };
+        pauseGreenMenuItem = controlMenu.add(pauseActionGreen);
+        pauseGreenMenuItem.setEnabled(false);
+
         Action resumeAction = new AbstractAction("Возобновить движение") {
             public void actionPerformed(ActionEvent event) {
                 field.resume();

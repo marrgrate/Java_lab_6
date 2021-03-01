@@ -10,7 +10,7 @@ import java.awt.Graphics2D;
 public class Field extends JPanel {
 
     private ArrayList<BouncingBall> balls = new ArrayList<BouncingBall>(10);
-    private boolean paused;
+
 
     private Timer repaintTimer = new Timer(10,
             new ActionListener(){
@@ -37,15 +37,26 @@ public class Field extends JPanel {
     }
 
     public synchronized void pause() {
-        paused = true;
+        for (BouncingBall ball: balls){
+            ball.setPaused();
+        }
     }
     public synchronized void resume() {
-        paused = false;
+        for (BouncingBall ball: balls){
+            ball.resumePaused();
+        }
         notifyAll();
+    }
+    public synchronized void pauseGreen() {
+        for (BouncingBall ball: balls) {
+            if(ball.getColor().getGreen() <= 2*(ball.getColor().getBlue() + ball.getColor().getRed())){
+                ball.setPaused();
+            }
+        }
     }
     public synchronized void canMove(BouncingBall ball)
             throws InterruptedException{
-        if(paused) {
+        if (ball.isPaused()) {
             wait();
         }
     }
